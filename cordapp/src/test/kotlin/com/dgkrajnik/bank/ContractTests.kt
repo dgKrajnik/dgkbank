@@ -48,8 +48,6 @@ class ContractTests {
 
     @Test
     fun `chain daniel tweaked double assign`() {
-        val issuer = MEGA_CORP.ref(123)
-
         ledger {
             unverifiedTransaction {
                 attachments(DANIEL_CONTRACT_ID)

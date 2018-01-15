@@ -93,7 +93,7 @@ data class DanielState(
         val thought: String,
         val issuer: AbstractParty,
         val owner: AbstractParty) : ContractState {
-    override val participants: List<AbstractParty> get() = listOf(issuer, owner)
+    override val participants: List<AbstractParty> get() = listOf(owner, issuer)
 
     fun withoutOwner() = copy(owner = AnonymousParty(NullKeys.NullPublicKey))
 

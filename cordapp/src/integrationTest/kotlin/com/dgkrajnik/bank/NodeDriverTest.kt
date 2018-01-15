@@ -15,6 +15,7 @@ import net.corda.testing.expect
 import net.corda.testing.expectEvents
 import net.corda.testing.parallel
 import org.junit.Test
+import kotlin.test.assertEquals
 
 /**
  * This file is exclusively for being able to run your nodes through an IDE (as opposed to using deployNodes)
@@ -37,7 +38,7 @@ class NodeTest {
                 startFlowPermission<DanielIssueRequest>()
         ))
         driver(isDebug = true) {
-            val (_, nodeBank, nodeBCS) = listOf(
+            val (notary, nodeBank, nodeBCS) = listOf(
                     startNode(providedName = CordaX500Name("Turicum Notary Service", "Zurich", "CH"), advertisedServices = setOf(ServiceInfo(ValidatingNotaryService.type))),
                     startNode(providedName = CordaX500Name("BCS Learning", "Sydney", "AU"), rpcUsers = listOf(user)),
                     startNode(providedName = CordaX500Name("Bank of Daniel", "Bloemfontein", "ZA"), rpcUsers = listOf(privilegedUser))).map { it.getOrThrow() }
@@ -67,12 +68,8 @@ class NodeTest {
             bodVaultUpdates.expectEvents {
                 parallel(
                         (1..10).map { i ->
-                            expect(
-                                    match = { update: Vault.Update<DanielState> ->
-                                        update.produced.first().state.data.thought == i.toString()
-                                    }
-                            ) { update ->
-                                println("Bob vault update of $update")
+                            expect { update: Vault.Update<DanielState> ->
+                                assertEquals(i.toString(), update.produced.first().state.data.thought)
                             }
                         }
                 )
