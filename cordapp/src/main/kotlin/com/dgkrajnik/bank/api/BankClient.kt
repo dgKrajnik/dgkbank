@@ -1,7 +1,11 @@
 package com.dgkrajnik.bank.api
 
 import com.dgkrajnik.bank.DanielIssueRequest
+import com.dgkrajnik.bank.DanielMoveRequest
+import com.dgkrajnik.bank.DanielState
 import net.corda.client.rpc.CordaRPCClient
+import net.corda.core.contracts.StateAndRef
+import net.corda.core.identity.CordaX500Name
 import net.corda.core.messaging.startFlow
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.utilities.NetworkHostAndPort
@@ -13,27 +17,39 @@ import net.corda.testing.http.HttpApi
  */
 object BankOfDanielClientApi {
     /**
-     * HTTP API
-     */
-    // TODO: security controls required
-    fun requestWebIssue(webAddress: NetworkHostAndPort, thought: String) {
-        val api = HttpApi.fromHostAndPort(webAddress, "api/bank")
-        api.postJson("issue-asset-request", thought)
-    }
-
-    /**
-     * RPC API
+     * Requests a Daniel issuance via RPC.
      *
-     * @return a pair of the issuing and payment transactions.
+     * @return the issuing transaction.
      */
     // TODO: privileged security controls required
-    fun requestRPCIssue(rpcAddress: NetworkHostAndPort, thought: String): SignedTransaction {
+    fun requestRPCIssue(rpcAddress: NetworkHostAndPort, thought: String, issuer: CordaX500Name): SignedTransaction {
         val client = CordaRPCClient(rpcAddress)
         client.start("user1", "test").use { connection ->
             val rpc = connection.proxy
             rpc.waitUntilNetworkReady().getOrThrow()
 
-            return rpc.startFlow(::DanielIssueRequest, thought)
+            val issuerID = rpc.wellKnownPartyFromX500Name(issuer) ?: throw IllegalArgumentException("Could not find the issuer node '${issuer}'.")
+
+            return rpc.startFlow(::DanielIssueRequest, thought, issuerID)
+                    .returnValue.getOrThrow()
+        }
+    }
+
+    /**
+     * Requests a Daniel transfer via RPC
+     *
+     * @return the move transaction
+     */
+    // TODO: privileged security controls required
+    fun requestRPCMove(rpcAddress: NetworkHostAndPort, daniel: StateAndRef<DanielState>, newOwner: CordaX500Name): SignedTransaction {
+        val client = CordaRPCClient(rpcAddress)
+        client.start("user1", "test").use { connection ->
+            val rpc = connection.proxy
+            rpc.waitUntilNetworkReady().getOrThrow()
+
+            val ownerID = rpc.wellKnownPartyFromX500Name(newOwner) ?: throw IllegalArgumentException("Could not find the new owner node '${newOwner}'.")
+
+            return rpc.startFlow(::DanielMoveRequest, daniel, ownerID)
                     .returnValue.getOrThrow()
         }
     }

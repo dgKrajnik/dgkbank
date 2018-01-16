@@ -28,12 +28,14 @@ private class DanielClient {
 
         val proxy = client.start("user1", "test").proxy
 
+        val (snapshot, updates) = proxy.vaultTrack(DanielState::class.java)
+
         proxy.waitUntilNetworkReady().getOrThrow()
 
-        proxy.startFlow(::DanielIssueRequest, args[1])
-                .returnValue.getOrThrow()
+        val issuerID = proxy.wellKnownPartyFromX500Name(BOD_NAME) ?: throw IllegalArgumentException("Could not find the issuer node '${BOD_NAME}'.")
 
-        val (snapshot, updates) = proxy.vaultTrack(DanielState::class.java)
+        proxy.startFlow(::DanielIssueRequest, args[1], issuerID)
+                .returnValue.getOrThrow()
 
         snapshot.states.forEach { logState(it) }
         updates.toBlocking().subscribe { update ->

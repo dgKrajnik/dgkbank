@@ -1,5 +1,7 @@
 package com.dgkrajnik.bank
 
+import net.corda.core.flows.FlowException
+import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
 import net.corda.core.utilities.getOrThrow
 import net.corda.node.internal.StartedNode
@@ -12,10 +14,12 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.fail
 
 class ResolveTransactionsFlowTest {
     lateinit var mockNet: MockNetwork
     lateinit var corp: StartedNode<MockNetwork.MockNode>
+    lateinit var invalidIssuer: StartedNode<MockNetwork.MockNode>
     lateinit var bod: StartedNode<MockNetwork.MockNode>
     lateinit var notary: StartedNode<MockNetwork.MockNode>
 
@@ -26,6 +30,7 @@ class ResolveTransactionsFlowTest {
         notary = mockNet.createNotaryNode(legalName=NOTARY_NAME)
         bod = mockNet.createPartyNode(legalName=BOD_NAME, networkMapAddress=notary.network.myAddress)
         corp = mockNet.createPartyNode(legalName=CORP_NAME, networkMapAddress=notary.network.myAddress)
+        invalidIssuer = mockNet.createPartyNode(legalName=CordaX500Name("Thunder Entertainment", "Irvine", "US"), networkMapAddress=notary.network.myAddress)
         mockNet.registerIdentities()
         bod.internals.registerInitiatedFlow(DanielIssueResponse::class.java)
         bod.internals.registerInitiatedFlow(DanielMoveResponse::class.java)
@@ -40,7 +45,7 @@ class ResolveTransactionsFlowTest {
 
     @Test
     fun `simple issuance flow`() {
-        val p = DanielIssueRequest("TEST THOUGHT")
+        val p = DanielIssueRequest("TEST THOUGHT", bod.info.chooseIdentity())
         val future = corp.services.startFlow(p).resultFuture
         mockNet.runNetwork()
         val results = future.getOrThrow()
@@ -49,15 +54,29 @@ class ResolveTransactionsFlowTest {
     }
 
     @Test
+    fun `invalid issuer`() {
+        val p = DanielIssueRequest("TEST THOUGHT", invalidIssuer.info.chooseIdentity())
+        try {
+            val future = corp.services.startFlow(p).resultFuture
+            mockNet.runNetwork()
+            val results = future.getOrThrow()
+        } catch (e: FlowException) {
+            assertEquals("java.lang.IllegalArgumentException: Failed requirement: I must be a whitelisted node", e.originalMessage)
+            return
+        }
+        fail()
+    }
+
+    @Test
     fun `simple issue-and-move flow`() {
-        val p = DanielIssueRequest("IF WORK IS ENERGY EXPENDED OVER TIME WHY DON'T WE GET PAID IN CALORIES")
+        val p = DanielIssueRequest("IF WORK IS ENERGY EXPENDED OVER TIME WHY DON'T WE GET PAID IN CALORIES", bod.info.chooseIdentity())
         val future = corp.services.startFlow(p).resultFuture
         mockNet.runNetwork()
         val results = future.getOrThrow()
         val ds = results.tx.outputStates[0] as DanielState
         assertEquals("IF WORK IS ENERGY EXPENDED OVER TIME WHY DON'T WE GET PAID IN CALORIES", ds.thought)
 
-        val move = DanielMoveRequest(bod.info.chooseIdentity(), results.tx.outRef(0))
+        val move = DanielMoveRequest(results.tx.outRef(0), bod.info.chooseIdentity())
         val moveFuture = corp.services.startFlow(move).resultFuture
         mockNet.runNetwork()
         val moveResults = moveFuture.getOrThrow()

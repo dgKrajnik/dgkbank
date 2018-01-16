@@ -14,6 +14,7 @@ import net.corda.core.serialization.SerializationWhitelist
 import net.corda.core.transactions.LedgerTransaction
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
+import net.corda.core.utilities.ProgressTracker
 import net.corda.testing.chooseIdentity
 import net.corda.testing.getDefaultNotary
 import net.corda.webserver.services.WebServerPluginRegistry
@@ -86,16 +87,16 @@ private fun getIssuerWhitelist(serviceHub: ServiceHub): Set<PublicKey> {
 // *********
 @InitiatingFlow
 @StartableByRPC
-class DanielIssueRequest(val thought: String) : FlowLogic<SignedTransaction>() {
+class DanielIssueRequest(val thought: String, val issuer: Party) : FlowLogic<SignedTransaction>() {
+    override val progressTracker = ProgressTracker()
     @Suspendable
     override fun call(): SignedTransaction {
         val notary = serviceHub.networkMapCache.getNotary(NOTARY_NAME) ?: throw FlowException("Could not find the trusted Turicum Notary node.")
-        val bankOfD = serviceHub.identityService.wellKnownPartyFromX500Name(BOD_NAME) ?: throw FlowException("Could not find the Bank of Daniel node.")
-        val selfID = serviceHub.myInfo.chooseIdentity()
+        val selfID = serviceHub.myInfo.legalIdentities[0]
 
-        val issueTxBuilder = DanielContract.generateIssue(thought, bankOfD, selfID, notary)
+        val issueTxBuilder = DanielContract.generateIssue(thought, issuer, selfID, notary)
 
-        val bankSession = initiateFlow(bankOfD)
+        val bankSession = initiateFlow(issuer)
 
         issueTxBuilder.setTimeWindow(TimeWindow.fromStartAndDuration(Instant.now(serviceHub.clock), Duration.ofMillis(10000)))
 
@@ -132,7 +133,8 @@ class DanielIssueResponse(val counterpartySession: FlowSession) : FlowLogic<Unit
 
 @InitiatingFlow
 @StartableByRPC
-class DanielMoveRequest(val newOwner: Party, val daniel: StateAndRef<DanielState>) : FlowLogic<SignedTransaction>() {
+class DanielMoveRequest(val daniel: StateAndRef<DanielState>, val newOwner: Party) : FlowLogic<SignedTransaction>() {
+    override val progressTracker = ProgressTracker()
     @Suspendable
     override fun call(): SignedTransaction {
         val notary = serviceHub.networkMapCache.getNotary(NOTARY_NAME) ?: throw FlowException("Could not find Turicum Notary node.")
@@ -195,5 +197,5 @@ class TemplateWebPlugin : WebServerPluginRegistry {
 
 // Serialization whitelist.
 class TemplateSerializationWhitelist : SerializationWhitelist {
-    override val whitelist: List<Class<*>> = listOf(ConfigException::class.java, ConfigException.UnresolvedSubstitution::class.java)
+    override val whitelist: List<Class<*>> = listOf()
 }
