@@ -1,15 +1,15 @@
-#DGK Bank
+# DGK Bank
 
-###Introduction:
+### Introduction:
 - DGK Bank is a small Corda Network that distribute a asset called DANIEL. 
 - DANIEL is a non fungible asset that contain thoughts.
 
 
-###Getting Started:
+### Getting Started:
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.  
 
 
-###Prerequisites: 
+### Prerequisites: 
 
 The following items should be installed in your system: 
 
@@ -22,9 +22,9 @@ The following items should be installed in your system: 
  
 (https://kotlinlang.org/docs/tutorials/command-line.html)
 
-###Installing: 
+### Installing: 
 A step by step series of examples that tell you how to get a development deployment running. 
-#####STEPS- 
+##### STEPS- 
 Ensure that you have the build.gradle file with the deployNodes task in the project root. 
 
 **1.To build the network's nodes** 
@@ -45,10 +45,10 @@ NAVIGATE:    Navigate to `./build/nodes.` 
 RUN FILE:      `runnodes` 
 
 RUN:   To make an issuance request to the bank, run:     
-    `gradlew runTemplateClient` 
+    `gradlew runBankClient -Pthought=<thought>` 
 
 
-###Running the Tests: 
+### Running the Tests: 
   **1 Unit Test:**  
   
         `./gradlew test` 
@@ -57,7 +57,7 @@ RUN:   To make an issuance request to the bank, run:     
  `./gradlew runIntegrationTest`  
  
 
-###Built With: 
+### Built With: 
 **1 Corda-**  Framework 
 
 **2 Intelij-**  IDE 
@@ -66,14 +66,14 @@ RUN:   To make an issuance request to the bank, run:     
 
 **4 Kotlin-**   Language 
 
-###Author 
+### Author 
 **Corda Team-** For Template Code 
 
 **Daniel  Krajnik-** Rest of the work 
  
  
  
-###Acknowledgment 
+### Acknowledgment 
 -Hat tip to anyone who's code was used 
 
 -Inspiration
