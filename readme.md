@@ -4,6 +4,7 @@
 - DGK Bank is a small Corda Network that distribute a asset called DANIEL. 
 - DANIEL is a non fungible asset that contain thoughts.
 
+![Diagram](danielcorda.png)
 
 ### Getting Started:
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.  
