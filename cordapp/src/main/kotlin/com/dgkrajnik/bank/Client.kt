@@ -7,6 +7,7 @@ import net.corda.core.utilities.NetworkHostAndPort.Companion.parse
 import net.corda.core.utilities.getOrThrow
 import net.corda.core.utilities.loggerFor
 import org.slf4j.Logger
+import java.time.Instant
 
 /**
  * Dump the vault contents, for debugging.
@@ -38,9 +39,8 @@ private class DanielClient {
                 .returnValue.getOrThrow()
 
         snapshot.states.forEach { logState(it) }
-        updates.toBlocking().subscribe { update ->
+        updates.subscribe { update ->
             update.produced.forEach { logState(it) }
         }
-
     }
 }

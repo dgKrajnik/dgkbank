@@ -138,9 +138,9 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
     }
 }
 
-task runTemplateClient(type: JavaExec) {
+task runBankClient(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'com.dgkrajnik.bank.ClientKt'
     args 'localhost:10006'
-    args 'BEGONE THOUGHT'
+    args findProperty("thought")
 }
