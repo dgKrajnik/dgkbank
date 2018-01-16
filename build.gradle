@@ -142,5 +142,5 @@ task runBankClient(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'com.dgkrajnik.bank.ClientKt'
     args 'localhost:10006'
-    args findProperty("thought")
+    args findProperty("thought") ?: "AN EMPTY MIND IS AN EMPTY KIND"
 }

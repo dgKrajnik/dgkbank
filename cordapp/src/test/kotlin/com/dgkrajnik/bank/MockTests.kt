@@ -3,6 +3,7 @@ package com.dgkrajnik.bank
 import net.corda.core.flows.FlowException
 import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
+import net.corda.core.node.services.queryBy
 import net.corda.core.utilities.getOrThrow
 import net.corda.node.internal.StartedNode
 import net.corda.nodeapi.internal.ServiceInfo
@@ -59,7 +60,7 @@ class ResolveTransactionsFlowTest {
         try {
             val future = corp.services.startFlow(p).resultFuture
             mockNet.runNetwork()
-            val results = future.getOrThrow()
+            future.getOrThrow()
         } catch (e: FlowException) {
             assertEquals("java.lang.IllegalArgumentException: Failed requirement: I must be a whitelisted node", e.originalMessage)
             return
@@ -82,5 +83,35 @@ class ResolveTransactionsFlowTest {
         val moveResults = moveFuture.getOrThrow()
         val mds = moveResults.tx.outputStates[0] as DanielState
         assertEquals(bod.info.chooseIdentity(), mds.owner)
+    }
+
+    @Test
+    fun `transaction is stored in both parties transaction storage`() {
+        val request = DanielIssueRequest("FOR NAUGHT BUT A THOUGHT", bod.info.chooseIdentity())
+        val future = corp.services.startFlow(request).resultFuture
+        mockNet.runNetwork()
+        val signedTx = future.getOrThrow()
+
+        assertEquals(signedTx, corp.services.validatedTransactions.getTransaction(signedTx.id))
+        assertEquals(signedTx, bod.services.validatedTransactions.getTransaction(signedTx.id))
+    }
+
+    @Test
+    fun `correct DanielState recorded in vault`() {
+        val request = DanielIssueRequest("FOR NAUGHT BUT A THOUGHT", bod.info.chooseIdentity())
+        val future = corp.services.startFlow(request).resultFuture
+        mockNet.runNetwork()
+        future.getOrThrow()
+
+        for(node in listOf(corp, bod)) {
+            node.database.transaction {
+                val states = node.services.vaultService.queryBy<DanielState>().states
+                assertEquals(1, states.size)
+                val recordedState = states.single().state.data
+                assertEquals("FOR NAUGHT BUT A THOUGHT", recordedState.thought)
+                assertEquals(corp.info.chooseIdentity(), recordedState.owner)
+                assertEquals(bod.info.chooseIdentity(), recordedState.issuer)
+            }
+        }
     }
 }
