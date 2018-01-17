@@ -51,22 +51,34 @@ gradlew deployNodes
 
 **2 To run the development network:** 
 
-NAVIGATE:    Navigate to `./build/nodes.` 
+NAVIGATE:    Navigate to 
+```
+./build/nodes.
+```
 
-RUN FILE:      `runnodes` 
+RUN FILE:      
+```
+runnodes
+``` 
 
 RUN:   To make an issuance request to the bank, run:  
-    `gradlew runBankClient -Pthought=<thought>` 
+    ```
+    gradlew runBankClient -Pthought=<thought>
+    ``` 
 
 
 
 ### Running the Tests: 
   **1 Unit Test:**  
   
-        `./gradlew test` 
+        ```
+        ./gradlew test
+        ``` 
 
  **2 Integration Test:**
- `./gradlew runIntegrationTest`  
+ ```
+ ./gradlew runIntegrationTest
+ ```  
  
 
 
