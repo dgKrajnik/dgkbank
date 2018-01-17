@@ -41,8 +41,7 @@ Ensure that you have the build.gradle file with the deployNodes task in the proj
 OPEN:     Open a terminal in the project root directory.
  
 
-RUN COMMAND:      Run  
-
+RUN COMMAND:      Run   
 ```
 gradlew deployNodes
 ```
@@ -66,7 +65,7 @@ RUN FILE: 
 
 ```
 runnodes
-``` 
+```
 
 
 
@@ -77,7 +76,7 @@ RUN:   To make an issuance request to the bank, run:
 
     ```
     gradlew runBankClient -Pthought=<thought>
-    ``` 
+    ```
 
 
 
@@ -88,7 +87,7 @@ RUN:   To make an issuance request to the bank, run:
   
         ```
         ./gradlew test
-        ``` 
+        ```
 
 
 
@@ -99,7 +98,7 @@ RUN:   To make an issuance request to the bank, run:
  
  ```
  ./gradlew runIntegrationTest
- ```  
+ ```
  
 
 
