@@ -45,7 +45,7 @@ NAVIGATE:    Navigate to `./build/nodes.` 
 
 RUN FILE:      `runnodes` 
 
-RUN:   To make an issuance request to the bank, run:     
+RUN:   To make an issuance request to the bank, run:  
     `gradlew runBankClient -Pthought=<thought>` 
 
 
@@ -75,10 +75,10 @@ RUN:   To make an issuance request to the bank, run:     
  
  
 ### Acknowledgment 
--Hat tip to anyone who's code was used 
-
--Inspiration
- 
+-Hat tip to anyone who's code was used  
+  
+-Inspiration  
+  
 -YOU 
 
 
