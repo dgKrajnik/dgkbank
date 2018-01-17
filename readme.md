@@ -1,16 +1,24 @@
-# DGK Bank
+ # DGK Bank
 
 ### Introduction:
 - DGK Bank is a small Corda Network that distribute a asset called DANIEL. 
 - DANIEL is a non fungible asset that contain thoughts.
 
+As per below diagram:
+
+The BCS Learning corporation is issuing a request to the Bank of Daniel and Bank of Daniel in response sends a DANIEL. DANIEL contains a piece of text called a 'Thought'.
+
 ![Diagram](danielcorda.png)
+
+
 
 ### Getting Started:
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.  
 
 
+
 ### Prerequisites: 
+
 
 The following items should be installed in your system: 
 
@@ -33,30 +41,65 @@ Ensure that you have the build.gradle file with the deployNodes task in the proj
 OPEN:     Open a terminal in the project root directory.
  
 
-RUN COMMAND:      Run  
-`gradlew deployNodes`
-
+RUN COMMAND:      Run   
+```
+gradlew deployNodes
+```
 
 
 
 **2 To run the development network:** 
 
-NAVIGATE:    Navigate to `./build/nodes.` 
+NAVIGATE:    Navigate to 
 
-RUN FILE:      `runnodes` 
 
-RUN:   To make an issuance request to the bank, run:  
-    `gradlew runBankClient -Pthought=<thought>` 
+```
+./build/nodes.
+```
+
+
+
+RUN FILE: 
+
+```
+runnodes
+```
+
+RUN:   To make an issuance request to the bank, run: 
+
+```
+gradlew runBankClient -Pthought=<thought>
+```
+
+CHECK: To check if the transaction was successful, run:
+
+```
+run vaultQuery contractStateType: com.dgkrajnik.bank.DanielState
+```
+
+In the shell of the BCS learning node, and check for a valid DanielState in the output.
+
 
 
 ### Running the Tests: 
   **1 Unit Test:**  
   
-        `./gradlew test` 
+ 
+ ```
+ ./gradlew test
+ ```
 
  **2 Integration Test:**
- `./gradlew runIntegrationTest`  
+ 
+ 
+ 
+ 
+ ```
+ ./gradlew runIntegrationTest
+ ```
  
+
+
 
 ### Built With: 
 **1 Corda-**  Framework 
@@ -67,14 +110,16 @@ RUN:   To make an issuance request to the bank, run:
 
 **4 Kotlin-**   Language 
 
-### Author 
+
+
+### Author: 
 **Corda Team-** For Template Code 
 
 **Daniel  Krajnik-** Rest of the work 
  
  
  
-### Acknowledgment 
+### Acknowledgment:
 -Hat tip to anyone who's code was used  
   
 -Inspiration  
