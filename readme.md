@@ -1,6 +1,4 @@
-
-
-  # DGK Bank
+ # DGK Bank
 
 ### Introduction:
 - DGK Bank is a small Corda Network that distribute a asset called DANIEL. 
@@ -44,6 +42,7 @@ OPEN:     Open a terminal in the project root directory.
  
 
 RUN COMMAND:      Run  
+
 ```
 gradlew deployNodes
 ```
@@ -58,7 +57,10 @@ NAVIGATE:    Navigate to
 ./build/nodes.
 ```
 
+
+
 RUN FILE: 
+
 
 
 ```
@@ -66,7 +68,10 @@ runnodes
 ``` 
 
 
+
+
 RUN:   To make an issuance request to the bank, run: 
+
 
 
     ```
@@ -78,17 +83,24 @@ RUN:   To make an issuance request to the bank, run:
 ### Running the Tests: 
   **1 Unit Test:**  
   
+  
+  
         ```
         ./gradlew test
         ``` 
 
+
+
  **2 Integration Test:**
+ 
+ 
  
  
  ```
  ./gradlew runIntegrationTest
  ```  
  
+
 
 
 ### Built With: 
