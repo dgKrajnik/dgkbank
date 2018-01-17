@@ -3,6 +3,7 @@
 ### Introduction:
 - DGK Bank is a small Corda Network that distribute a asset called DANIEL. 
 - DANIEL is a non fungible asset that contain thoughts.
+Daniel is issuing request toBank and Bank in response sending DANIEL. DANIEL is 'Issuer Owner Thought".
 
 ![Diagram](danielcorda.png)
 
