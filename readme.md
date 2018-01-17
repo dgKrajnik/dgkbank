@@ -1,4 +1,5 @@
 
+
   # DGK Bank
 
 ### Introduction:
@@ -10,6 +11,7 @@ As per below diagram:
 Daniel is issuing request to Bank and Bank in response sending DANIEL. DANIEL is 'Issuer Owner Thought".
 
 ![Diagram](danielcorda.png)
+
 
 ### Getting Started:
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.  
@@ -54,6 +56,7 @@ RUN:   To make an issuance request to the bank, run:
     `gradlew runBankClient -Pthought=<thought>` 
 
 
+
 ### Running the Tests: 
   **1 Unit Test:**  
   
@@ -62,6 +65,7 @@ RUN:   To make an issuance request to the bank, run:
  **2 Integration Test:**
  `./gradlew runIntegrationTest`  
  
+
 
 ### Built With: 
 **1 Corda-**  Framework 
