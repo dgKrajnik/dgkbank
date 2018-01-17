@@ -43,8 +43,8 @@ OPEN:     Open a terminal in the project root directory.
  
 
 RUN COMMAND:      Run  
-`gradlew deployNodes`
-
+`gradlew deployNodes
+`
 
 
 
