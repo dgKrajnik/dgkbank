@@ -61,22 +61,23 @@ NAVIGATE:    Navigate to
 
 RUN FILE: 
 
-
-
 ```
 runnodes
 ```
 
-
-
-
 RUN:   To make an issuance request to the bank, run: 
-
-
 
 ```
 gradlew runBankClient -Pthought=<thought>
 ```
+
+CHECK: To check if the transaction was successful, run:
+
+```
+run vaultQuery contractStateType: com.dgkrajnik.bank.DanielState
+```
+
+In the shell of the BCS learning node, and check for a valid DanielState in the output.
 
 
 
