@@ -6,7 +6,7 @@
 
 As per below diagram:
 
-Daniel is issuing request to Bank and Bank in response sending DANIEL. DANIEL is 'Issuer Owner Thought".
+The BCS Learning corporation is issuing a request to the Bank of Daniel and Bank of Daniel in response sends a DANIEL. DANIEL contains a piece of text called a 'Thought'.
 
 ![Diagram](danielcorda.png)
 
@@ -74,22 +74,19 @@ RUN:   To make an issuance request to the bank, run:
 
 
 
-    ```
-    gradlew runBankClient -Pthought=<thought>
-    ```
+```
+gradlew runBankClient -Pthought=<thought>
+```
 
 
 
 ### Running the Tests: 
   **1 Unit Test:**  
   
-  
-  
-        ```
-        ./gradlew test
-        ```
-
-
+ 
+ ```
+ ./gradlew test
+ ```
 
  **2 Integration Test:**
  
