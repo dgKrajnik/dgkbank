@@ -1,4 +1,5 @@
 
+
   # DGK Bank
 
 ### Introduction:
@@ -52,16 +53,22 @@ gradlew deployNodes
 **2 To run the development network:** 
 
 NAVIGATE:    Navigate to 
+
 ```
 ./build/nodes.
 ```
 
-RUN FILE:      
+RUN FILE: 
+
+
 ```
 runnodes
 ``` 
 
-RUN:   To make an issuance request to the bank, run:  
+
+RUN:   To make an issuance request to the bank, run: 
+
+
     ```
     gradlew runBankClient -Pthought=<thought>
     ``` 
@@ -76,6 +83,8 @@ RUN:   To make an issuance request to the bank, run:
         ``` 
 
  **2 Integration Test:**
+ 
+ 
  ```
  ./gradlew runIntegrationTest
  ```  
