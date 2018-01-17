@@ -13,8 +13,10 @@ Daniel is issuing request to Bank and Bank in response sending DANIEL. DANIEL is
 ![Diagram](danielcorda.png)
 
 
+
 ### Getting Started:
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.  
+
 
 
 ### Prerequisites: 
@@ -76,14 +78,16 @@ RUN:   To make an issuance request to the bank, run:
 
 **4 Kotlin-**   Language 
 
-### Author 
+
+
+### Author: 
 **Corda Team-** For Template Code 
 
 **Daniel  Krajnik-** Rest of the work 
  
  
  
-### Acknowledgment 
+### Acknowledgment:
 -Hat tip to anyone who's code was used  
   
 -Inspiration  
