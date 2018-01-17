@@ -20,6 +20,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites: 
 
+
 The following items should be installed in your system: 
 
 1. JDK 1.8  
@@ -42,8 +43,9 @@ OPEN:     Open a terminal in the project root directory.
  
 
 RUN COMMAND:      Run  
-```gradlew deployNodes```
-
+```
+gradlew deployNodes
+```
 
 
 
