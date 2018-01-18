@@ -19,7 +19,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites: 
 
--
 The following items should be installed in your system: 
 
 1.  [JDK 1.8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
@@ -96,7 +95,6 @@ gradlew tet
  ```
  ./gradlew runIntegrationTest
  ```
- 
 
 ### Built With: 
 **1 Corda v2.0 -**  Framework 
@@ -106,8 +104,6 @@ gradlew tet
 **3 Gradle-**  Dependency Management 
 
 **4 Kotlin-**   Language 
-
-
 
 ### Author: 
 **Corda Team-** For Template Code 
