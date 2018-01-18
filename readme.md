@@ -37,31 +37,31 @@ Ensure that you have the build.gradle file with the deployNodes task in the proj
 - Open a terminal in the project root directory.
  
 
-- Run   
+- Run command
+###### Windows
 ```
 gradlew deployNodes
 ```
-
-
+###### Unix
+```
+./gradlew deployNodes
+```
 
 **2 To run the development network:** 
 
-NAVIGATE:    Navigate to 
-
+Navigate:
 
 ```
 ./build/nodes.
 ```
 
-
-
-RUN FILE: 
+Run File: 
 
 ```
 ./runnodes
 ```
 
-RUN:   To make an issuance request to the bank, run: 
+To make an issuance request to the bank, run: 
 
 ```
 ./gradlew runBankClient -Pthought=<thought>
@@ -78,24 +78,26 @@ In the shell of the BCS learning node, and check for a valid DanielState in the 
 
 
 ### Running the Tests: 
-  **1 Unit Test:**  
-  
- 
- ```
+  **1 Unit Test:**
+###### Windows
+```
+gradlew tet
+```
+###### Unix
+```
  ./gradlew test
  ```
 
  **2 Integration Test:**
- 
- 
- 
- 
+ ###### Windows
+ ```
+ gradlew runIntegrationTest
+ ```
+ ###### Unix
  ```
  ./gradlew runIntegrationTest
  ```
  
-
-
 
 ### Built With: 
 **1 Corda v2.0 -**  Framework 
