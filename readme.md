@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites: 
 
-
+-
 The following items should be installed in your system: 
 
 1.  [JDK 1.8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
@@ -49,32 +49,31 @@ gradlew deployNodes
 
 **2 To run the development network:** 
 
-Navigate:
+- Navigate
 
 ```
 ./build/nodes.
 ```
 
-Run File: 
+- Run File 
 
 ```
 ./runnodes
 ```
 
-To make an issuance request to the bank, run: 
+- To make an issuance request to the bank, Run: 
 
 ```
 ./gradlew runBankClient -Pthought=<thought>
 ```
 
-CHECK: To check if the transaction was successful, run:
+- To check if the transaction was successful, Run:
 
 ```
 run vaultQuery contractStateType: com.dgkrajnik.bank.DanielState
 ```
 
-In the shell of the BCS learning node, and check for a valid DanielState in the output.
-
+- In the shell of the BCS learning node, and check for a valid DanielState in the output.
 
 
 ### Running the Tests: 
