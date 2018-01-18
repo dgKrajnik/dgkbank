@@ -22,14 +22,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 The following items should be installed in your system: 
 
-1. JDK 1.8  
- 
- Start this message (https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
+1.  [JDK 1.8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
  
 
-2   KOTLIN 1.2
- 
-(https://kotlinlang.org/docs/tutorials/command-line.html)
+2.  [KOTLIN 1.2](https://kotlinlang.org/docs/tutorials/command-line.html)
 
 ### Installing: 
 A step by step series of examples that tell you how to get a development deployment running. 
@@ -38,10 +34,10 @@ Ensure that you have the build.gradle file with the deployNodes task in the proj
 
 **1.To build the network's nodes** 
 
-OPEN:     Open a terminal in the project root directory.
+- Open a terminal in the project root directory.
  
 
-RUN COMMAND:      Run   
+- Run   
 ```
 gradlew deployNodes
 ```
@@ -62,13 +58,13 @@ NAVIGATE:    Navigate to
 RUN FILE: 
 
 ```
-runnodes
+./runnodes
 ```
 
 RUN:   To make an issuance request to the bank, run: 
 
 ```
-gradlew runBankClient -Pthought=<thought>
+./gradlew runBankClient -Pthought=<thought>
 ```
 
 CHECK: To check if the transaction was successful, run:
@@ -102,7 +98,7 @@ In the shell of the BCS learning node, and check for a valid DanielState in the 
 
 
 ### Built With: 
-**1 Corda-**  Framework 
+**1 Corda v2.0 -**  Framework 
 
 **2 Intelij-**  IDE 
 
@@ -115,7 +111,7 @@ In the shell of the BCS learning node, and check for a valid DanielState in the 
 ### Author: 
 **Corda Team-** For Template Code 
 
-**Daniel  Krajnik-** Rest of the work 
+[**Daniel  Krajnik**](daniel.krajnik@bcstechnology.com.au) -Rest of the work 
  
  
  
