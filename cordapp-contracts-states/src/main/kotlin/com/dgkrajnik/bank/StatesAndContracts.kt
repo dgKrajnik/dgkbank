@@ -47,7 +47,7 @@ class DanielContract : Contract {
 
                 is DanielContract.Commands.Issue -> {
                     val output = outputs.single()
-                    val time = timeWindow?.untilTime ?: throw IllegalArgumentException("Issuances must be timestamped")
+                    timeWindow?.untilTime ?: throw IllegalArgumentException("Issuances must be timestamped")
                     requireThat {
                         // Don't allow people to issue commercial paper under other entities identities.
                         "Output states are issued by a command signer." using (output.issuer.owningKey in command.signers)
@@ -62,8 +62,6 @@ class DanielContract : Contract {
     }
 
     companion object {
-        val logger: Logger = loggerFor<DanielContract>()
-
         /*
          * Genreates an issuance of a Daniel.
          */

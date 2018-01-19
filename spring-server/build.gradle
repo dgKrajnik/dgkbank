@@ -26,30 +26,34 @@ sourceSets {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin"
+    compile "com.fasterxml.jackson.core:jackson-databind"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
     testCompile "junit:junit:$junit_version"
+    compile project(":cordapp-contracts-states")
+    compile project(":cordapp")
 
     // Corda integration dependencies
-    cordaCompile "net.corda:corda-core:$corda_release_version"
-    cordaCompile "net.corda:corda-finance:$corda_release_version"
-    cordaCompile "net.corda:corda-jackson:$corda_release_version"
-    cordaCompile "net.corda:corda-rpc:$corda_release_version"
-    cordaRuntime "net.corda:corda:$corda_release_version"
+    compile "net.corda:corda-core:$corda_release_version"
+    compile "net.corda:corda-finance:$corda_release_version"
+    compile "net.corda:corda-jackson:$corda_release_version"
+    compile "net.corda:corda-rpc:$corda_release_version"
+    runtime "net.corda:corda:$corda_release_version"
     testCompile "net.corda:corda-node-driver:$corda_release_version"
 
-    compile("org.springframework.boot:spring-boot-starter-websocket:$spring_boot_version") {
+    compile("org.springframework.boot:spring-boot-starter-web:$spring_boot_version") {
         exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
     }
     compile "org.springframework.boot:spring-boot-starter-log4j2:$spring_boot_version"
     compile "org.apache.logging.log4j:log4j-web:2.7"
-
-    cordapp project(":spring-server")
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
-        languageVersion = "1.1"
-        apiVersion = "1.1"
+        languageVersion = "1.2"
+        apiVersion = "1.2"
         jvmTarget = "1.8"
         javaParameters = true   // Useful for reflection.
     }
@@ -59,12 +63,10 @@ task runBODServer(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'com.dgkrajnik.bank.server.ServerKt'
     environment "server.port", "8080"
-    environment "config.rpc.port", "10006"
 }
 
 task runBCSServer(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'com.dgkrajnik.bank.server.ServerKt'
     environment "server.port", "8081"
-    environment "config.rpc.port", "10009"
 }
