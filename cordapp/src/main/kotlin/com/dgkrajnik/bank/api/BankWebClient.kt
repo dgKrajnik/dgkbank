@@ -10,9 +10,7 @@ import net.corda.core.flows.FlowException
 import net.corda.core.identity.CordaX500Name
 import net.corda.core.messaging.CordaRPCOps
 import net.corda.core.messaging.startFlow
-import net.corda.core.utilities.OpaqueBytes
 import net.corda.core.utilities.getOrThrow
-import net.corda.finance.flows.CashIssueAndPaymentFlow
 import java.time.LocalDateTime
 import java.util.*
 import javax.ws.rs.*
