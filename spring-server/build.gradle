@@ -48,6 +48,8 @@ dependencies {
     compile "com.fasterxml.jackson.module:jackson-module-kotlin"
     compile "com.fasterxml.jackson.core:jackson-databind"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    compile("io.springfox:springfox-swagger2:2.7.0")
+    compile("io.springfox:springfox-swagger-ui:2.7.0")
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
     testCompile "junit:junit:$junit_version"
 
