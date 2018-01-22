@@ -1,17 +1,16 @@
 package com.dgkrajnik.bank.server
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import net.corda.core.contracts.Amount
-import net.corda.finance.GBP
 import org.springframework.boot.Banner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 /**
  * Our Spring Boot application.
  */
 @SpringBootApplication
-private open class ServerStarter
+@EnableSwagger2
+private class ServerStarter
 
 /**
  * Starts our Spring Boot application.
