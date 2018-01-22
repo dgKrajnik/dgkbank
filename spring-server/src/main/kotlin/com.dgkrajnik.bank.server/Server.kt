@@ -14,7 +14,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
  */
 @SpringBootApplication
 @EnableSwagger2
-private class ServerStarter
+private class ServerStarter {
+    @Bean
+    fun corsConfigurer(): WebMvcConfigurer {
+        return object : WebMvcConfigurerAdapter() {
+            override fun addCorsMappings(registry: CorsRegistry) {
+                //TODO: CHANGE THIS, WOW.
+                registry.addMapping("/dgkbank/*").allowedOrigins("*")
+            }
+        }
+    }
+}
 
 /**
  * Starts our Spring Boot application.
@@ -24,14 +34,4 @@ fun main(args: Array<String>) {
     app.setBannerMode(Banner.Mode.OFF)
     app.isWebEnvironment = true
     app.run(*args)
-}
-
-@Bean
-fun corsConfigurer(): WebMvcConfigurer {
-    return object : WebMvcConfigurerAdapter() {
-        override fun addCorsMappings(registry: CorsRegistry) {
-            //TODO: CHANGE THIS, WOW.
-            registry.addMapping("/dgkbank/*").allowedOrigins("*")
-        }
-    };
 }
