@@ -1,5 +1,8 @@
 package com.dgkrajnik.bank.server
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import net.corda.core.contracts.Amount
+import net.corda.finance.GBP
 import org.springframework.boot.Banner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
