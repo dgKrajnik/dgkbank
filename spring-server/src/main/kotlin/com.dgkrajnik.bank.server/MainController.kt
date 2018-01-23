@@ -113,7 +113,7 @@ private class RestController(
 
     /** Returns a list of existing DanielState's. */
     @GetMapping("/getdaniels", produces = ["application/json"])
-    private fun getYos(): List<Map<String, Any>> {
+    private fun getDaniels(): List<Map<String, Any>> {
         val danielStateAndRefs = rpc.proxy.vaultQueryBy<DanielState>().states
         val danielStates = danielStateAndRefs.map { it }
         return danielStates.map { mapOf(
