@@ -35,6 +35,7 @@ private const val CONTROLLER_NAME = "config.controller.name"
  *  A controller for interacting with the node via RPC.
  */
 @RestController
+//@CrossOrigin(origins="*")
 @RequestMapping("/dgkbank") // The paths for GET and POST requests are relative to this base path.
 private class RestController(
         private val rpc: NodeRPCConnection,

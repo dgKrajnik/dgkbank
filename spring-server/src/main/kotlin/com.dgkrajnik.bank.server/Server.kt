@@ -14,17 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
  */
 @SpringBootApplication
 @EnableSwagger2
-private class ServerStarter {
-    @Bean
-    fun corsConfigurer(): WebMvcConfigurer {
-        return object : WebMvcConfigurerAdapter() {
-            override fun addCorsMappings(registry: CorsRegistry) {
-                //TODO: CHANGE THIS, WOW.
-                registry.addMapping("/dgkbank/*").allowedOrigins("*")
-            }
-        }
-    }
-}
+private class ServerStarter {}
 
 /**
  * Starts our Spring Boot application.
