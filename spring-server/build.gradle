@@ -52,9 +52,7 @@ dependencies {
     compile "net.corda:corda-rpc:$corda_release_version"
     compile "net.corda:corda-node-api:$corda_release_version"
 
-    compile("org.springframework.boot:spring-boot-starter-web:$spring_boot_version") {
-        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
-    }
+    compile("org.springframework.boot:spring-boot-starter-web:$spring_boot_version")
 }
 
 jar {
