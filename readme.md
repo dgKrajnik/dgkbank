@@ -21,8 +21,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 The following items should be installed in your system: 
 
-1.  [JDK 1.8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
- 
+1.  [JDK 1.8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html 
 
 2.  [KOTLIN 1.2](https://kotlinlang.org/docs/tutorials/command-line.html)
 
@@ -89,11 +88,11 @@ gradlew tet
  **2 Integration Test:**
  ###### Windows
  ```
- gradlew runIntegrationTest
+ gradlew integrationTest
  ```
  ###### Unix
  ```
- ./gradlew runIntegrationTest
+ ./gradlew integrationTest
  ```
 
 ### Built With: 
