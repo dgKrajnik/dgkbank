@@ -79,7 +79,7 @@ run vaultQuery contractStateType: com.dgkrajnik.bank.DanielState
   **1 Unit Test:**
 ###### Windows
 ```
-gradlew tet
+gradlew test
 ```
 ###### Unix
 ```
@@ -89,11 +89,11 @@ gradlew tet
  **2 Integration Test:**
  ###### Windows
  ```
- gradlew runIntegrationTest
+ gradlew integrationTest
  ```
  ###### Unix
  ```
- ./gradlew runIntegrationTest
+ ./gradlew integrationTest
  ```
 
 ### Built With: 
