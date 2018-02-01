@@ -27,7 +27,7 @@ The following items should be installed in your system: 
 2.  [KOTLIN 1.2](https://kotlinlang.org/docs/tutorials/command-line.html)
 
 ### Installing: 
-A step by step series of examples that tell you how to get a development deployment running. 
+sA step by step series of examples that tell you how to get a development deployment running. 
 ##### STEPS- 
 Ensure that you have the build.gradle file with the deployNodes task in the project root. 
 
@@ -79,7 +79,7 @@ run vaultQuery contractStateType: com.dgkrajnik.bank.DanielState
   **1 Unit Test:**
 ###### Windows
 ```
-gradlew tet
+gradlew test
 ```
 ###### Unix
 ```
@@ -89,7 +89,7 @@ gradlew tet
  **2 Integration Test:**
  ###### Windows
  ```
- gradlew runIntegrationTest
+ ./gradlew IntegrationTest
  ```
  ###### Unix
  ```
