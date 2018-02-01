@@ -27,7 +27,7 @@ The following items should be installed in your system: 
 2.  [KOTLIN 1.2](https://kotlinlang.org/docs/tutorials/command-line.html)
 
 ### Installing: 
-sA step by step series of examples that tell you how to get a development deployment running. 
+A step by step series of examples that tell you how to get a development deployment running. 
 ##### STEPS- 
 Ensure that you have the build.gradle file with the deployNodes task in the project root. 
 
@@ -89,11 +89,11 @@ gradlew test
  **2 Integration Test:**
  ###### Windows
  ```
- ./gradlew IntegrationTest
+ gradlew integrationTest
  ```
  ###### Unix
  ```
- ./gradlew runIntegrationTest
+ ./gradlew integrationTest
  ```
 
 ### Built With: 
