@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+        classpath "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
     }
 }
 
@@ -32,35 +33,36 @@ sourceSets {
     }
 }
 
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.9.0"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.0"
+    compile("io.springfox:springfox-swagger2:2.7.0")
+    compile("io.springfox:springfox-swagger-ui:2.7.0")
+    compile fileTree(dir: '../cordapp/build/libs', include: ['cordapp-*.jar'])
+    compile fileTree(dir: '../cordapp-contracts-states/build/libs', include: ['cordapp-contracts-states*.jar'])
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testCompile "junit:junit:$junit_version"
+
+    compile "net.corda:corda-core:$corda_release_version"
+    compile "net.corda:corda-jackson:$corda_release_version"
+    compile "net.corda:corda-rpc:$corda_release_version"
+    compile "net.corda:corda-node-api:$corda_release_version"
+
+    compile("org.springframework.boot:spring-boot-starter-web:$spring_boot_version")
+}
+
 jar {
     manifest {
         attributes "Main-Class" : "com.dgkrajnik.bank.server.ServerKt"
+        attributes "Class-Path" : configurations.compile.collect { it.getName() }.join(' ')
     }
     // This line of code recursively collects and copies all of a project's files
     // and adds them to the JAR itself. One can extend this task, to skip certain
     // files or particular types at will
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-}
-
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile "com.fasterxml.jackson.module:jackson-module-kotlin"
-    compile "com.fasterxml.jackson.core:jackson-databind"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
-    compile("io.springfox:springfox-swagger2:2.7.0")
-    compile("io.springfox:springfox-swagger-ui:2.7.0")
-    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
-    testCompile "junit:junit:$junit_version"
-
-    compile project(":cordapp-contracts-states")
-    compile project(":cordapp")
-
-    compile("org.springframework.boot:spring-boot-starter-web:$spring_boot_version") {
-        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
-    }
-    compile "org.springframework.boot:spring-boot-starter-log4j2:$spring_boot_version"
-    compile "org.apache.logging.log4j:log4j-web:2.7"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {

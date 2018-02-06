@@ -19,13 +19,12 @@ import net.corda.core.utilities.base64toBase58
 import net.corda.core.utilities.toBase64
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
-import javax.ws.rs.*
-import javax.ws.rs.core.MediaType
-import javax.ws.rs.core.Response
 import javax.servlet.http.HttpServletRequest
 
 
@@ -35,6 +34,7 @@ private const val CONTROLLER_NAME = "config.controller.name"
  *  A controller for interacting with the node via RPC.
  */
 @RestController
+//@CrossOrigin(origins="*")
 @RequestMapping("/dgkbank") // The paths for GET and POST requests are relative to this base path.
 private class RestController(
         private val rpc: NodeRPCConnection,
@@ -47,12 +47,12 @@ private class RestController(
 
     private val myName = rpc.proxy.nodeInfo().legalIdentities.first().name
 
-    @GetMapping("/date", produces=[MediaType.APPLICATION_JSON])
+    @GetMapping("/date", produces=[MediaType.APPLICATION_JSON_VALUE])
     fun getCurrentDate(): Any {
         return mapOf("date" to LocalDateTime.now().toLocalDate())
     }
 
-    @GetMapping("/port", produces=[MediaType.TEXT_PLAIN])
+    @GetMapping("/port", produces=[MediaType.TEXT_PLAIN_VALUE])
     fun getPort(): String {
         return rpcPort.toString()
     }
@@ -60,8 +60,8 @@ private class RestController(
     /**
      *  Request asset issuance
      */
-    @PostMapping("/issue-asset-request", consumes=[MediaType.APPLICATION_JSON])
-    fun issueAssetRequest(@RequestBody params: IssueParams): Response {
+    @PostMapping("/issue-asset-request", consumes=[MediaType.APPLICATION_JSON_VALUE])
+    fun issueAssetRequest(@RequestBody params: IssueParams): ResponseEntity<String> {
         //val issuerX500 = CordaX500Name.parse(params.issuer) // We should definitely write a jackson thing to process json into a name, but for now this'll work.
         val issuerX500 = params.issuer
         return try {
@@ -69,18 +69,18 @@ private class RestController(
             val issuerID = proxy.wellKnownPartyFromX500Name(issuerX500) ?: throw IllegalArgumentException("Could not find the issuer node '$issuerX500'.")
             proxy.startFlow(::DanielIssueRequest, params.thought, issuerID).returnValue.getOrThrow()
             logger.info("Issue request completed successfully: $params.thought")
-            Response.status(Response.Status.CREATED).build()
+            ResponseEntity.status(HttpStatus.CREATED).build()
         } catch (e: Exception) {
             logger.error("Issue request failed", e)
-            Response.status(Response.Status.FORBIDDEN).build()
+            ResponseEntity.status(HttpStatus.FORBIDDEN).build()
         }
     }
 
     /**
      *  Request asset move
      */
-    @PostMapping("/issue-move-request", produces=[], consumes=[MediaType.APPLICATION_JSON])
-    fun issueMoveRequest(@RequestBody params: MoveParams): Response {
+    @PostMapping("/issue-move-request", produces=[], consumes=[MediaType.APPLICATION_JSON_VALUE])
+    fun issueMoveRequest(@RequestBody params: MoveParams): ResponseEntity<String> {
         //val newOwnerX500 = CordaX500Name.parse(params.newOwner)
         val newOwnerX500 = params.newOwner
         val daniel = StateRef(SecureHash.SHA256(params.danielHash.base64ToByteArray()), params.danielIndex)
@@ -90,10 +90,10 @@ private class RestController(
             val issuerID = proxy.wellKnownPartyFromX500Name(newOwnerX500) ?: throw IllegalArgumentException("Could not find the new owner node '$newOwnerX500'.")
             proxy.startFlow(::DanielMoveRequest, sar, issuerID).returnValue.getOrThrow()
             logger.info("Movement request completed successfully")
-            Response.status(Response.Status.CREATED).build()
+            ResponseEntity.status(HttpStatus.CREATED).build()
         } catch (e: Exception) {
             logger.error("Movement request failed", e)
-            Response.status(Response.Status.FORBIDDEN).build()
+            ResponseEntity.status(HttpStatus.FORBIDDEN).build()
         }
     }
 
